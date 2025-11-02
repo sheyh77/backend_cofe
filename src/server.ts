@@ -5,7 +5,8 @@ import authRoutes from "./routes/authRoutes";
 import connectDB from "./config/db";
 import productRoutes from "./routes/productRoutes";
 import path from "path";
-import adminRoutes from "./routes/adminRoutes"
+import adminRoutes from "./routes/adminRoutes";
+import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ connectDB();
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes); 
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Auth server ${PORT}-portda ishlayapti`));

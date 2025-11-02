@@ -42,3 +42,12 @@ export const login = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server xatosi: " + err });
   }
 };
+
+export const getUserCount = async (req: Request, res: Response) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ userCount: count });
+  } catch (err) {
+    res.status(500).json({ message: "Server xatosi: " + err });
+  }
+};
