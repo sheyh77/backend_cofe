@@ -5,6 +5,7 @@ const profileSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true },
   address: { type: String, required: true },
+  image: { type: String, default: "" }
 });
 
 export default mongoose.model("Profile", profileSchema);
