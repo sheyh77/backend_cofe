@@ -1,23 +1,22 @@
 import express from "express";
 import multer from "multer";
-import path from "path";
-import Profile from "../models/profileModel";
+import Profile from "../models/profileModel.js";
 
 const router = express.Router();
 
-// 🔹 Rasm saqlanadigan joyni belgilaymiz
+// Rasmni saqlash joyi (local yoki server)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, "uploads/"); // uploads papkasiga saqlanadi
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
 const upload = multer({ storage });
 
-// 🔹 Profil yaratish yoki yangilash
+// POST /api/profile — foydalanuvchi ma'lumotlarini saqlash
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const { fullName, phone, email, address } = req.body;
