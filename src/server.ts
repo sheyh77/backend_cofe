@@ -44,14 +44,11 @@ import profileRoutes from "./routes/profileRoutes";
 dotenv.config();
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// === Multer sozlamasi ===
 const upload = multer({ dest: "uploads/" });
 
-// === Fayl yuklash uchun endpoint ===
 app.post("/api/upload", upload.single("image"), (req, res) => {
   try {
     if (!req.file) {
@@ -66,19 +63,15 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
   }
 });
 
-// === Static papka ===
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-// === MongoDB ulanishi ===
 connectDB();
 
-// === Route’lar ===
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/profile", profileRoutes);
 
-// === Server ishga tushishi ===
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Server ${PORT}-portda ishlayapti`));
